@@ -4,10 +4,12 @@ const fds = require('fds.js')
 const JSDOM = require('jsdom').JSDOM
 const MockExpressRequest = require('mock-express-request')
 const MockExpressResponse = require('mock-express-response')
+var path = require('path');
 
 const SwarmStorage = require('../src/redux-persist-swarm-storage')
 
-
+var dotEnvPath = path.resolve('./.env');
+require('dotenv').config({ path: dotEnvPath })
 chai.use(spies)
 const expect = chai.expect
 
@@ -17,6 +19,10 @@ function delay(milliseconds) {
     })
 }
 
+const address = process.env.ADDRESS
+const privateKey = process.env.PRIVATEKEY
+
+console.log()
 describe('SwarmStorage', () => {
     describe('Testing', () => {
         it('stores item', async () => {
@@ -40,8 +46,8 @@ describe('SwarmStorage', () => {
             })
 
             const account = {
-                address: "0x996974B31C8d7c8096C7Ef7914469B964D1Ea11D",
-                privateKey: "0x656da20262069a18a9e65ac2134383eea6628721e669f0de4be5e567ec98c722"
+                address: address,
+                privateKey: privateKey
             }
 
             const storage = new SwarmStorage(FDS, account, { keyPrefix: "instaswarm" })
@@ -70,8 +76,8 @@ describe('SwarmStorage', () => {
             })
 
             const account = {
-                address: "0x996974B31C8d7c8096C7Ef7914469B964D1Ea11D",
-                privateKey: "0x656da20262069a18a9e65ac2134383eea6628721e669f0de4be5e567ec98c722"
+                address: address,
+                privateKey: privateKey
             }
 
             const storage = new SwarmStorage(FDS, account, { keyPrefix: "instaswarm" })
